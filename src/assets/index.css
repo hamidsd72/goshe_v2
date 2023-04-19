@@ -1,0 +1,7 @@
+@font-face {
+    font-family: IRANSans;
+    font-weight: 900;
+    src:url(./Sans.eot) format("eot"), 
+    url(./Sans.woff) format("woff"),
+    url(./Sans.ttf) format("ttf");
+}

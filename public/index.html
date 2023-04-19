@@ -4,8 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <link rel="icon" href="<%= BASE_URL %>favicon.png">
+    <!-- <link rel="icon" href="<%= BASE_URL %>logo.png"> -->
+    <!-- <meta name="`" content=<%= process.env.VUE_APP_KEYWORD %> > -->
+    <!-- <meta name="keywords" content=<%= process.env.VUE_APP_DESCRIPTION %> > -->
+    <!-- <title><%= htmlWebpackPlugin.options.title %></title> -->
+    <title><%= process.env.VUE_APP_TITLE %></title>
   </head>
   <body>
     <noscript>
