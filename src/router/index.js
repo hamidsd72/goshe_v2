@@ -3,6 +3,7 @@ import store              from '@/store'
 
 // import Home               from '../views/Home.vue'
 import Callback           from '../views/Callback.vue'
+import PaystarResult      from '../views/PaystarResult.vue'
 import Categury           from '../views/Categury.vue'
 import ShowCategury       from '../views/ShowCategury.vue'
 import About              from '../views/About.vue'
@@ -63,6 +64,11 @@ const routes = [
     path: '/callback/:id',
     name: 'paymentcallback',
     component: Callback
+  },
+  {
+    path: '/payment/result',
+    name: 'PaystarResult',
+    component: PaystarResult
   },
   // {
   //   path: '/blog',

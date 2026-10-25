@@ -21,9 +21,8 @@ import { dom } from "@fortawesome/fontawesome-svg-core";
 dom.watch();
 library.add(faUserSecret)
 
-axios.defaults.baseURL = 'doctor.gosheshenava.com:8000/';
-// axios.defaults.baseURL = 'http://127.0.0.1:8000/';
-// axios.defaults.baseURL = 'http://176.97.218.214:8000/';
+// On HTTPS sites use an HTTPS API, or proxy this same-origin prefix to Django.
+axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
 
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(store).use(router).mount('#app')
 

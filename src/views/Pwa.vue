@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="PwaPage pt-lg-4">
-            <img :src="require('@/assets/logo.jpg')" class="logo bg-white border logo rounded-circle rounded-circle p-1" alt="کوش شنوا">
+            <img :src="require('@/assets/logo.png')" class="logo bg-white border logo rounded-circle rounded-circle p-1" alt="کوش شنوا">
             <div class="text-secondary mt-3">
                 <h4 class="mb-4 text-center">نصب ورژن PWA اپلیکیشن گوش شنوا</h4>
                 <div class="text-right px-lg-5">

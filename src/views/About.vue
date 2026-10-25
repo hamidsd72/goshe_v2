@@ -3,7 +3,7 @@
     <div class="bg-white p-3 rounded border row">
       <h4 class="text-right">ارتباط با ما</h4>
       <div class="col-12 text-center">
-        <img :src="require('@/assets/logo.jpg')" class="logo bg-white border logo rounded-circle rounded-circle p-1" alt="کوش شنوا">
+        <img :src="require('@/assets/logo.png')" class="logo bg-white border logo rounded-circle rounded-circle p-1" alt="کوش شنوا">
       </div>
       <div class="text-center col-12 pt-5">
         <p class="py-4">آدرس : تهران ستارخان , نرسیده به میدان توحید</p>

@@ -74,29 +74,24 @@ export default {
       console.log(id)
     },
     in_blacklist(id) {
+      console.log(id)
       return false;
     },
     setStatus(status) {
       switch (status) {
         case 'Customer : ANSWER ,  Consultant : ANSWER':
           return "<span class='text-success'>تماس موفق</span>";
-          break;
         case 'Customer : ANSWER ,  Consultant : BUSY':
           return "<span class='text-danger'>عدم پاسخ مشاور</span>";
-          break;
         case 'Customer : ANSWER ,  Consultant : CANCEL':
           return "<span class='text-danger'>عدم پاسخ مشاور</span>";
-          break;
         case 'Customer : ANSWER ,  Consultant : CONGESTION':
           return "<span class='text-danger'>عدم پاسخ مشاور</span>";
-          break;
         case 'Customer : ANSWER ,  Consultant :':
           return "<span class='text-danger'>عدم پاسخ مشاور</span>";
-          break;
         default:
           console.log(status)
           return "<span class='text-danger'>تماس ناموفق</span>";
-          break;
       }
     }
   },

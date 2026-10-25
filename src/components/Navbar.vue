@@ -8,7 +8,7 @@
                     <div class="collapse navbar-collapse" id="nav">
                         
                         <div class="form-inline my-2 my-lg-0">
-                            <a href="https://gosheshenava.com" class="mr-3 ml-3" ><img class="logo" :src="require('@/assets/logo.jpg')" ></a>
+                            <a href="https://gosheshenava.com" class="mr-3 ml-3" ><img class="logo" :src="require('@/assets/logo.png')" ></a>
                             <router-link v-if="!$store.state.pwaCheck" to="/" class="text-dark">اپلیکیشن</router-link>
                             <router-link to="/transaction/create" v-if="$store.state.isAuthenticated" class="text-dark">
                                 {{ num2fa(formatMoney( this.$store.state.amount )) }} 

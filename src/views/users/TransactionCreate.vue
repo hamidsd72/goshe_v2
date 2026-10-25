@@ -131,7 +131,7 @@ export default {
         },
         paymentCreate(order_id) {
             // axios.post("/payment_create/", {order_id: order_id})
-            axios.post("/gateway/parspal/create/link/", {order_id: order_id})
+            axios.post("/gateway/paystar/create/link/", {order_id: order_id})
             .then(response => {
                 if (response.data.link) {
                     window.location.href = response.data.link

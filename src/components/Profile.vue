@@ -468,7 +468,7 @@
                             <button type="button" class="btn text-secondary float-left" data-dismiss="modal"><i class="fa fa-close text-danger h5"></i></button>
                         </div>
 
-                        <img class="m-1" :src="require('@/assets/callService.svg')">
+                        <!-- <img class="m-1" :src="require('@/assets/callService.svg')"> -->
                         <div class="bg-light p-3 text-right p-justify">
 
                             <p class="my-4">
@@ -548,6 +548,7 @@
 <script>
 import axios from 'axios'
 import Star from '@/components/Star.vue'
+const { isValidOtp } = require('@/utils/authOtp.cjs')
 
     export default {
         name: 'ProfileComponent',
@@ -636,7 +637,7 @@ import Star from '@/components/Star.vue'
             },
             paymentCreate(order_id) {
                 // axios.post("/payment_create/", {order_id: order_id})
-                axios.post("/gateway/parspal/create/link/", {order_id: order_id})
+                axios.post("/gateway/paystar/create/link/", {order_id: order_id})
                 .then(response => {
                     if (response.data.link) {
                         window.location.href = response.data.link
@@ -681,9 +682,9 @@ import Star from '@/components/Star.vue'
                 }
             },
             doLogin() {
-                if (this.code.length < 6 || this.code.length > 6) {
+                if (!isValidOtp(this.code)) {
                     this.codeE = true
-                    this.codeEM = "کد باید ۶ شماره باشد"
+                    this.codeEM = "کد باید عددی و حداقل ۵ رقم باشد"
                     if (this.code.length == 0) {
                         this.codeEM = "فیلد کد اجباری هست"
                     }

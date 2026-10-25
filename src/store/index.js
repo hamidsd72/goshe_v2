@@ -3,7 +3,8 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    baseUrl:              'doctor.gosheshenava.com:8000',
+    // baseUrl:              'doctor.gosheshenava.com:8000',
+    baseUrl:              '176.97.218.121:8000',
     isAuthenticated:      false,
     pwaCheck:             false,
     token:                '',

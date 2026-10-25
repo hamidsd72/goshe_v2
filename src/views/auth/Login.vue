@@ -18,7 +18,7 @@
                     </div>
                     <div class="mb-3">
                         <div class="form-group ">
-                            <input type="text" class="form-control text-left name" :class="{'is-invalid':codeE===true}" placeholder="کد ۶ رقمی را وارد کنید" v-model="code">
+                            <input type="text" inputmode="numeric" autocomplete="one-time-code" class="form-control text-left name" :class="{'is-invalid':codeE===true}" placeholder="کد ۶ رقمی را وارد کنید" v-model="code">
                             <div class="text-danger" v-if="codeE">{{codeEM}}</div>
                         </div>
                         <button @click="doLogin" class="btn btn-block btn-success">ورود کد</button>
@@ -53,7 +53,7 @@
                     <div class="form-group text-right pt-3">
                         <label for="usernameInput" >شماره موبایل خود را وارد کنید</label>
                         <div class="input-group bg-light border rounded mt-3">
-                            <input type="text" class="form-control text-left bg-transparent border-none name" onpaste="return false;" :class="{'is-invalid':usernameE===true}" placeholder="9128068983" v-model="username">
+                            <input type="tel" inputmode="numeric" autocomplete="tel" class="form-control text-left bg-transparent border-none name" :class="{'is-invalid':usernameE===true}" placeholder="9128068983" v-model="username">
                             <div class="input-group-prepend rounded"><div class="input-group-text rounded">+98</div></div>
                         </div>
                         <div class="text-danger feedback" >{{usernameEM}}</div>
@@ -72,6 +72,7 @@
 
 <script>
 import axios from 'axios'
+const { normalizeDigits, normalizeMobileInput, isValidIranMobile, isValidOtp } = require('@/utils/authOtp.cjs')
 
 export default {
     name: 'LoginPage',
@@ -90,7 +91,7 @@ export default {
             alert: false,
             newUsername: [],
             newCode: [],
-            timer: 20,
+            timer: 120,
         }
     },
     methods: {
@@ -104,52 +105,16 @@ export default {
             }
         },
         doLogin() {
-            if (this.code.length < 6 || this.code.length > 6) {
+            if (!isValidOtp(this.code)) {
                 this.codeE = true
-                this.codeEM = "کد باید ۶ شماره باشد"
+                this.codeEM = "کد باید عددی و حداقل ۵ رقم باشد"
                 if (this.code.length == 0) {
                     this.codeEM = "فیلد کد اجباری هست"
                 }
             } else { 
                 this.codeE   = false
                 this.codeEM  = ''
-                this.newCode = []
-                for (let index = 0; index < this.code.length; index++) {
-                    switch (this.code[index]) {
-                        case '۰':
-                            this.newCode.push('0')
-                            break;
-                        case '۱':
-                            this.newCode.push('1')
-                            break;
-                        case '۲':
-                            this.newCode.push('2')
-                            break;
-                        case '۳':
-                            this.newCode.push('3')
-                            break;
-                        case '۴':
-                            this.newCode.push('4')
-                            break;
-                        case '۵':
-                            this.newCode.push('5')
-                            break;
-                        case '۶':
-                            this.newCode.push('6')
-                            break;
-                        case '۷':
-                            this.newCode.push('7')
-                            break;
-                        case '۸':
-                            this.newCode.push('8')
-                            break;
-                        case '۹':
-                            this.newCode.push('9')
-                            break;
-                        default:
-                            this.newCode.push(this.code[index])
-                    }
-                }
+                this.newCode = normalizeDigits(this.code).split('')
                 axios.post('/get-code/', {code: String(this.newCode.join("")), username: String(this.newUsername.join(""))})
                 .then(response => {
                     if (response.data.allow) {
@@ -167,9 +132,9 @@ export default {
             }
         },
         createCode() {
-            if (this.username.length < 10 || this.username.length > 10) {
+            if (!isValidIranMobile(this.username)) {
                 this.usernameE = true
-                this.usernameEM = "موبایل باید ۱۰ شماره باشد"
+                this.usernameEM = "شماره موبایل معتبر وارد کنید"
                 if (this.username.length == 0) {
                     this.usernameEM = "فیلد موبایل اجباری هست"
                 }
@@ -177,76 +142,47 @@ export default {
                 this.submited   = true
                 this.usernameE  = false
                 this.usernameEM = ""
-                this.newUsername = []
-                for (let index = 0; index < this.username.length; index++) {
-                    switch (this.username[index]) {
-                        case '۰':
-                            this.newUsername.push('0')
-                            break;
-                        case '۱':
-                            this.newUsername.push('1')
-                            break;
-                        case '۲':
-                            this.newUsername.push('2')
-                            break;
-                        case '۳':
-                            this.newUsername.push('3')
-                            break;
-                        case '۴':
-                            this.newUsername.push('4')
-                            break;
-                        case '۵':
-                            this.newUsername.push('5')
-                            break;
-                        case '۶':
-                            this.newUsername.push('6')
-                            break;
-                        case '۷':
-                            this.newUsername.push('7')
-                            break;
-                        case '۸':
-                            this.newUsername.push('8')
-                            break;
-                        case '۹':
-                            this.newUsername.push('9')
-                            break;
-                        default:
-                            this.newUsername.push(this.username[index])
-                    }
-                }
+                this.newUsername = normalizeMobileInput(this.username).split('')
                 if (String(this.newUsername.join(""))[0] != 9) {
                     this.usernameE = true
                     this.usernameEM = "موبایل نامعتبر, شماره باید با 9 شروع شود"
                 } else {
-                    this.nextStep = true
-                    this.alert = true
-                    this.alert_msg_toggle
-                    this.submited = false
-                    this.studentUpdate()
                     axios.post('/create-code/', {username: String(this.newUsername.join(""))})
                     .then(response => {
                         console.log(response)
+                        this.nextStep = true
+                        this.alert = true
+                        this.timer = 120
+                        this.submited = false
+                        this.studentUpdate()
                     })
                     .catch(e => {
-                        if ( e.response.data.errors == "شماره یافت نشد") {
+                        if (e.response?.data?.errors == "شماره یافت نشد") {
                             axios.post('/api/auth/users/', {password: this.password, username: String(this.newUsername.join(""))})
                             .then(response => {
                                 if (response.status == 201) {
-                                    axios.post('/create-code/', {username: response.data.username})
-                                    .then(response => {
-                                        console.log(response)
-                                    })
-                                    this.nextStep = true 
+                                    return axios.post('/create-code/', {username: response.data.username})
+                                }
+                                return null
+                            }).then(response => {
+                                if (response) {
+                                    this.nextStep = true
                                     this.alert = true
-                                    this.alert_msg_toggle
+                                    this.timer = 120
                                     this.submited = false
                                     this.studentUpdate()
                                 }
                             }).catch(e => {
                                 this.usernameE  = true
-                                this.usernameEM = e.response.data.username.join(" ")
-                                 this.submited = false
+                                this.usernameEM = e.response?.data?.errors || e.response?.data?.username?.join(" ") || "ارسال کد تایید ناموفق بود"
+                                this.submited = false
                             })
+                        } else {
+                            this.usernameE = true
+                            this.usernameEM = e.response?.data?.errors || "ارسال کد تایید ناموفق بود"
+                            this.nextStep = false
+                            this.alert = false
+                            this.submited = false
                         }
                     })
 
@@ -262,8 +198,13 @@ export default {
                 this.nextStep = true
                 this.alert = true
                 this.alert_msg_toggle
-                this.timer = 20
+                this.timer = 120
                 this.studentUpdate()
+            })
+            .catch(e => {
+                this.alert = false
+                this.usernameE = true
+                this.usernameEM = e.response?.data?.errors || "ارسال مجدد کد ناموفق بود"
             })
 
         },
