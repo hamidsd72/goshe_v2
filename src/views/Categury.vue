@@ -36,7 +36,7 @@
 
               <div class="col-auto my-auto">
                 <div class="py-2">
-                  <img class="img-sm-circle img-border-glass rounded-circle" :src="String([$store.state.baseUrl,result.userId.avatar].join(''))" :alt="result.userId.last_name">
+                  <img class="img-sm-circle img-border-glass rounded-circle" :src="result.userId.avatar" :alt="result.userId.last_name">
                 </div>
               </div>
               <div class="col-6 col-lg p-0 my-auto">

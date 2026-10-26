@@ -71,7 +71,7 @@
                       </div>
                     </router-link>
                   </div>
-                  <div class="col-2 pt-1 pb-1"><img class="img-sm-circle img-border-glass rounded-circle" :src="String(['http://176.97.218.121:8000',result.userId.avatar].join(''))" :alt="result.userId.last_name"></div>
+                  <div class="col-2 pt-1 pb-1"><img class="img-sm-circle img-border-glass rounded-circle" :src="result.userId.avatar" :alt="result.userId.last_name"></div>
                 </div>
               </div>
             </div>
@@ -112,7 +112,7 @@
                       <div v-else-if="result.visit_type=='c'">مشاوره بصورت تماس</div>
                     </router-link>
                   </div>
-                  <div class="col-3"><div class="pt-1 pb-1"><img class="img-circle img-border-glass rounded-circle" :src="String(['http://176.97.218.121:8000',result.userId.avatar].join(''))" :alt="result.userId.last_name"></div></div>                    
+                  <div class="col-3"><div class="pt-1 pb-1"><img class="img-circle img-border-glass rounded-circle" :src="result.userId.avatar" :alt="result.userId.last_name"></div></div>
                 
                 </div>
               </div>

@@ -1,3 +1,5 @@
+const { normalizeMediaFields } = require('./mediaUrl.cjs')
+
 // All Axios consumers in this application talk to Django, including DRF next/previous links.
 function normalizeApiUrl(url, baseURL, origin) {
   if (typeof url !== 'string' || !url.trim() || /[\\\r\n]/.test(url)) {
@@ -58,7 +60,11 @@ function installApiTransport(axios, baseURL, origin) {
     config.url = normalizeApiUrl(config.url, config.baseURL || axios.defaults.baseURL, origin)
     return config
   })
-  axios.interceptors.response.use(validateApiResponse)
+  axios.interceptors.response.use(response => {
+    validateApiResponse(response)
+    normalizeMediaFields(response.data, (response.config || {}).baseURL || axios.defaults.baseURL, origin)
+    return response
+  })
 }
 
 module.exports = { normalizeApiUrl, validateApiResponse, paginatedResults, installApiTransport }
