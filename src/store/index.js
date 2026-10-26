@@ -3,8 +3,7 @@ import axios from 'axios'
 
 export default createStore({
   state: {
-    // baseUrl:              'doctor.gosheshenava.com:8000',
-    baseUrl:              '176.97.218.121:8000',
+    baseUrl:              process.env.VUE_APP_API_BASE_URL,
     isAuthenticated:      false,
     pwaCheck:             false,
     token:                '',

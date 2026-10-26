@@ -97,7 +97,7 @@ export default {
         .then(response => {
             this.user   = response.data
             this.callNumber = response.data.username    
-            axios.get(`author-shift-list?authorId=${this.$route.params.id}&myDate=7`)
+            axios.get(`author-shift-list/?authorId=${this.$route.params.id}&myDate=7`)
             .then(response => {
                 this.items      = response.data.results
                 this.next       = response.data.next
@@ -122,7 +122,7 @@ export default {
                 document.querySelector('#modalClose123').click();
                 
                 this.alert  = false;
-                axios.get(`author/${this.$route.params.id}`)
+                axios.get(`author/${this.$route.params.id}/`)
                 .then(response => {
                     axios.post('user-register-shift-using-author/',{
                         AuthorId:       this.$route.params.id,
@@ -133,7 +133,7 @@ export default {
                     })
                     .then(response => {
                         if (response.status==201) {
-                            axios.get(`author-shift-list?authorId=${this.$route.params.id}&myDate=7`)
+                            axios.get(`author-shift-list/?authorId=${this.$route.params.id}&myDate=7`)
                             .then(response => {
                                 this.items      = response.data.results
                                 this.next       = response.data.next

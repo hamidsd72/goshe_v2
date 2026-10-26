@@ -94,6 +94,7 @@
 
 <script>
 import axios from 'axios'
+const { paginatedResults } = require('@/utils/apiTransport.cjs')
 
 export default {
     name: 'HeadMessage',
@@ -176,7 +177,7 @@ export default {
             return false
         },
         findAuthor(id,first_name,last_name) {
-            axios.get(`createauthor?userId=${id}`).then(response => this.$router.push(`/profile/${response.data.results[0].id}/${first_name}${last_name}`))
+            axios.get(`createauthor/?userId=${id}`).then(response => this.$router.push(`/profile/${response.data.results[0].id}/${first_name}${last_name}`))
         },
         call(userId,mobile) {
             axios.post('call_create/', {"userNember": mobile, "userIdAuthor": userId})
@@ -211,7 +212,8 @@ export default {
             this.meUnmber = response.data.username
         })
         axios.post('newestFromUserMessage/', {userId: this.item.followId.id}).then(response => this.counter = response.data.messageNotSee )
-        axios.get('numbers/').then(response => { if (response.data.results.length) { this.numbers = response.data.results } })
+        axios.get('numbers/').then(response => { this.numbers = paginatedResults(response) })
+            .catch(() => { this.numbers = [] })
     },
 }
 </script>

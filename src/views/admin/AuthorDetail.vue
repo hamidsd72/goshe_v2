@@ -160,8 +160,8 @@ export default {
                 axios.get(`adminuserauthor/${this.$route.params.id}/`)
                 .then(response => {
                     this.item = response.data
-                    axios.get(`AdminShowUserCall?userId=${response.data.userId.id}`).then(response => this.calls = response.data.results ).catch(e => console.table(e.response.data))
-                    axios.get(`AdminShowUserMessage?userId=${response.data.userId.id}`).then(response => this.messages = response.data.results ).catch(e => console.table(e.response.data))
+                    axios.get(`AdminShowUserCall/?userId=${response.data.userId.id}`).then(response => this.calls = response.data.results ).catch(e => console.table(e.response.data))
+                    axios.get(`AdminShowUserMessage/?userId=${response.data.userId.id}`).then(response => this.messages = response.data.results ).catch(e => console.table(e.response.data))
                     axios.post('admincallAndMessageLog/', {userId: response.data.userId.id}).then(response => this.logs = response.data ).catch(e => console.table(e.response.data))
                 })
                 .catch(e => console.table(e.response.data))

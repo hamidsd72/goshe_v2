@@ -122,7 +122,7 @@ export default {
                 .then(response => {
                     if (this.me) {
                         this.isAuthor = 'notAuthor'
-                        axios.get(`amount-user/${response.data.id}`)
+                        axios.get(`amount-user/${response.data.id}/`)
                         .then(response => {
                             if (response.data.amount >= this.me.msg_price) {
                                 this.price = response.data.amount - this.me.msg_price

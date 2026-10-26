@@ -22,7 +22,8 @@ dom.watch();
 library.add(faUserSecret)
 
 // On HTTPS sites use an HTTPS API, or proxy this same-origin prefix to Django.
-axios.defaults.baseURL = process.env.VUE_APP_API_BASE_URL;
+const { installApiTransport } = require('./utils/apiTransport.cjs')
+installApiTransport(axios, process.env.VUE_APP_API_BASE_URL, window.location.origin)
 
 createApp(App).component('font-awesome-icon', FontAwesomeIcon).use(store).use(router).mount('#app')
 

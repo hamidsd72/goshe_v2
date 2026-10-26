@@ -100,7 +100,7 @@ export default {
         axios.get('api/auth/users/me/')
         .then(response => {
             this.id = response.data.id
-            axios.get(`ticket?userId=${response.data.id}`)
+            axios.get(`ticket/?userId=${response.data.id}`)
             .then(response => {
                 if (response.data.results.length) {
                     this.count = false

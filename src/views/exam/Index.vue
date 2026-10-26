@@ -85,7 +85,7 @@ export default {
             .then(response => {
                 this.doctor = response.data.results[0]
 
-                axios.get(`/users/exam?authorId=${response.data.results[0].id}`)
+                axios.get(`/users/exam/?authorId=${response.data.results[0].id}`)
                 .then(response => {
                     if (response.data.results.length) {
                         this.usersExam  = response.data.results
@@ -98,7 +98,7 @@ export default {
         })
         .catch(e => console.log(e.response.data))
 
-        axios.get(`exam?authorId=${this.$route.params.id}`)
+        axios.get(`exam/?authorId=${this.$route.params.id}`)
         .then(response => {
             this.items      = response.data.results
             this.next       = response.data.next

@@ -49,9 +49,9 @@ export default {
       this.category = response.data.results
     })
     // مشاور این صفحه
-    axios.get(`author/${this.$route.params.id}`)
+    axios.get(`author/${this.$route.params.id}/`)
       .then(response => {
-        axios.get(`ActiveCallLog?authorId=${this.$route.params.id}`).then(response => {
+        axios.get(`ActiveCallLog/?authorId=${this.$route.params.id}`).then(response => {
           this.activeCallLog = response.data.results.length
         })
         .catch(e => console.log(e.response.status) )

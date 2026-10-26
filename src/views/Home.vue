@@ -409,7 +409,7 @@ export default {
     // });
     this.$store.state.filter = false
 
-    axios.get('category?category=1')
+    axios.get('category/?category=1')
     .then(response => {
       this.items = response.data.results
     })
@@ -417,7 +417,7 @@ export default {
         console.log(e.response.data)
     })
 
-    axios.get('category?category=2')
+    axios.get('category/?category=2')
     .then(response => {
       this.seconditems = response.data.results
     })
@@ -425,7 +425,7 @@ export default {
         console.log(e.response.data)
     })
 
-    axios.get('letest-blog?letest=1')
+    axios.get('letest-blog/?letest=1')
     .then(response => {
       this.letestBlog = response.data.results
     })

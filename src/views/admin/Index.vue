@@ -281,19 +281,19 @@ export default {
       },
       lastDays(days) {
         if (this.$store.state.section == 'tickets') {
-          axios.get(`admin-view-ticket?lastday=${days}`).then(response => {
+          axios.get(`admin-view-ticket/?lastday=${days}`).then(response => {
             this.tickets = response.data.results
             this.p_tickets = response.data.previous
             this.n_tickets = response.data.next
           })
         } else if (this.$store.state.section == 'authors') {
-          axios.get(`adminuserauthor?lastday=${days}`).then(response => {
+          axios.get(`adminuserauthor/?lastday=${days}`).then(response => {
             this.authors = response.data.results
             this.p_authors = response.data.previous
             this.n_authors = response.data.next
           })
         } else if (this.$store.state.section == 'messages') {
-          axios.get(`message?lastday=${days}`).then(response => {
+          axios.get(`message/?lastday=${days}`).then(response => {
             this.messages = response.data.results
             this.p_messages = response.data.previous
             this.n_messages = response.data.next
@@ -309,7 +309,7 @@ export default {
             this.n_tickets = response.data.next
           })
         } else if (section == 'authors') {
-          axios.get('adminuserauthor?status=0').then(response => {
+          axios.get('adminuserauthor/?status=0').then(response => {
             this.authors = response.data.results
             this.p_authors = response.data.previous
             this.n_authors = response.data.next
@@ -319,7 +319,7 @@ export default {
               this.cat = response.data.results
           })
         } else if (section == 'messages') {
-          axios.get('message?lastday=7').then(response => {
+          axios.get('message/?lastday=7').then(response => {
             this.messages = response.data.results
             this.p_messages = response.data.previous
             this.n_messages = response.data.next
@@ -430,7 +430,7 @@ export default {
         })
       },
       toAuthor(userId) {
-        axios.get(`userauthor?userId=${userId}`)
+        axios.get(`userauthor/?userId=${userId}`)
         .then(response => {
           if (response.data.results.length) {
             this.$router.push(`/admin/user-author/${response.data.results[0].id}`)            

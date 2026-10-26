@@ -110,7 +110,7 @@ export default {
             this.item = response.data
             this.author = `${response.data.AuthorId.userId.first_name} ${response.data.AuthorId.userId.last_name}`
             this.category = response.data.category
-            axios.get(`letest-blog?category=${response.data.category[0]}`)
+            axios.get(`letest-blog/?category=${response.data.category[0]}`)
             .then(response => {
                 this.letestBlog = response.data.results
             })

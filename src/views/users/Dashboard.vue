@@ -142,6 +142,7 @@
                         <div v-if="!edit" class="card-block">
                             <h6 class="text-right border-bottom m-0 py-2 my-2">شماره های من</h6>
 
+                            <div v-if="numbersLoadError" class="alert alert-danger" role="alert">{{ numbersLoadError }}</div>
                             <div v-if="numbers" class="row mt-3 mb-3">
                                 <div class="col-lg-4 col-6 text-right" v-for="number in numbers" :key="number.id">
                                     <div class="card rounded">
@@ -428,6 +429,7 @@
 
 <script>
 import axios from 'axios'
+const { paginatedResults } = require('@/utils/apiTransport.cjs')
 import DatePicker from 'vue3-persian-datetime-picker'
 // import User from '@/components/User.vue'
 
@@ -440,6 +442,7 @@ export default {
   data () {
     return { 
       numbers: null,
+      numbersLoadError: '',
       anime: false,
 
       documentTitle: '',
@@ -480,7 +483,9 @@ export default {
     
     axios.get('/api/auth/users/me/')
         .then(response => {
-            axios.get('numbers').then(response => { if (response.data.results.length) { this.numbers = response.data.results } })
+            axios.get('numbers/')
+                .then(response => { this.numbers = paginatedResults(response) })
+                .catch(() => { this.numbersLoadError = 'دریافت شماره‌ها ناموفق بود. دوباره تلاش کنید.' })
             localStorage.setItem("userId", response.data.id)
             localStorage.setItem("username", response.data.username)
             this.$store.state.userId = response.data.id
@@ -707,7 +712,10 @@ export default {
             })
             .then(response => { 
                 console.table(response)
-                axios.get('numbers/').then(response => this.numbers = response.data.results ) 
+                axios.get('numbers/').then(response => {
+                    this.numbers = paginatedResults(response)
+                    this.numbersLoadError = ''
+                }).catch(() => { this.numbersLoadError = 'دریافت شماره‌ها ناموفق بود. دوباره تلاش کنید.' })
             })
         }
     },

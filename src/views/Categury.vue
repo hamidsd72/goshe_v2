@@ -64,6 +64,7 @@
       </div>
     </div>
 
+    <div v-if="loadError" class="alert alert-danger" role="alert">{{ loadError }}</div>
     <div v-if="items.length" class="row">
       <div class="col-lg-6" v-for="item in items" :key="item.id" >
         <Categury :id="item.id" :title="item.title" :slug="item.slug" :baner="item.baner" />
@@ -75,6 +76,7 @@
 <script>
 import axios from 'axios'
 import Categury from '@/components/Categury.vue'
+const { paginatedResults } = require('@/utils/apiTransport.cjs')
 
 export default {
   name: 'CategoryPage',
@@ -84,8 +86,9 @@ export default {
   data() {
     return {
       // items: JSON.parse(localStorage.getItem("items"))
-      items: '',
-      results: '',
+      items: [],
+      results: [],
+      loadError: '',
       search: '',
     }
   },
@@ -93,9 +96,9 @@ export default {
     this.$store.state.runAnimation = true
     this.$store.state.filter = false
 
-    axios.get('category')
-    .then(response => this.items = response.data.results)
-    .catch(e => console.table(e.response))
+    axios.get('category/')
+    .then(response => this.items = paginatedResults(response))
+    .catch(() => { this.loadError = 'دریافت دسته‌بندی‌ها ناموفق بود. دوباره تلاش کنید.' })
     .finally(() => this.$store.state.runAnimation = false )
 
   }, methods: {
@@ -116,7 +119,7 @@ export default {
           console.table(e.response.data)
           if (e.response.data.error && e.response.data.error=='Author By This Name Or Family Not Found') {
             document.querySelector('.search-bar-category-alert').classList.remove('d-none');
-            this.results = '';
+            this.results = [];
           }
         })
         // .finally(() => this.$store.state.runAnimation = false )

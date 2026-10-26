@@ -83,7 +83,7 @@ export default {
     }
   },
   created() {
-    axios.get(`userauthor?userId=${this.$route.params.id}`)
+    axios.get(`userauthor/?userId=${this.$route.params.id}`)
     .then(response => {
         if (response.data.results.length > 0) {
             this.me = response.data.results[0]
@@ -91,7 +91,7 @@ export default {
                 this.amount = response.data.results[0].msg_price
                 axios.get('api/auth/users/me/')
                 .then(response => {
-                    axios.get(`amount-user/${response.data.id}`)
+                    axios.get(`amount-user/${response.data.id}/`)
                     .then(response => {
                         if (response.data.amount < this.me.msg_price) {
                             this.sendbtn = false
@@ -155,7 +155,7 @@ export default {
             .then(response => {
                 if (this.$route.params.id != this.$route.params.requestUser) {
                     this.isAuthor = 'notAuthor'
-                    axios.get(`amount-user/${response.data.id}`)
+                    axios.get(`amount-user/${response.data.id}/`)
                     .then(response => {
                         if (response.data.amount >= (this.me.msg_price * 10)) {
                             this.price = response.data.amount - (this.me.msg_price * 10)

@@ -83,7 +83,7 @@ export default {
         }
     },
     mounted() {
-        axios.get(`question?examId=${this.$route.params.id}`)
+        axios.get(`question/?examId=${this.$route.params.id}`)
         .then(response => {
             this.item       = this.$route.params.slug
             this.items      = response.data.results

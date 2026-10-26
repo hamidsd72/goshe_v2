@@ -85,13 +85,13 @@ export default {
         }
     },
     mounted() {
-        axios.get(`question?examId=${this.$route.params.id}`)
+        axios.get(`question/?examId=${this.$route.params.id}`)
         .then(response => {
             this.items      = response.data.results
             this.next       = response.data.next
             this.previous   = response.data.previous
             
-            axios.get(`visit/exam?examId=${this.$route.params.id}`)
+            axios.get(`visit/exam/?examId=${this.$route.params.id}`)
             .then(response => {
             if (response.data.results.length) {
                 this.myExam = response.data.results[0]
@@ -102,7 +102,7 @@ export default {
             })
             .catch(e => console.log(e.response.data))
 
-            axios.get(`exam?slug=${this.$route.params.slug}`)
+            axios.get(`exam/?slug=${this.$route.params.slug}`)
             .then(response => {
                 this.exam = response.data.results[0]
             })

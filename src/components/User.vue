@@ -414,6 +414,7 @@
 
 <script>
     import axios from 'axios'
+    const { paginatedResults } = require('@/utils/apiTransport.cjs')
     import DatePicker from 'vue3-persian-datetime-picker'
 
     export default {
@@ -628,7 +629,8 @@
                     })
                     .then(response => { 
                         console.table(response)
-                        axios.get('numbers/').then(response => this.numbers = response.data.results ) 
+                        axios.get('numbers/').then(response => this.numbers = paginatedResults(response))
+                            .catch(() => { this.numberCreateError = 'دریافت شماره‌ها ناموفق بود. دوباره تلاش کنید.' })
                     })
                 }
             },
@@ -645,7 +647,8 @@
             //         return false;
             //     }); 
             // })
-            axios.get('numbers').then(response => { if (response.data.results.length) { this.numbers = response.data.results } })
+            axios.get('numbers/').then(response => { this.numbers = paginatedResults(response) })
+                .catch(() => { this.numberCreateError = 'دریافت شماره‌ها ناموفق بود. دوباره تلاش کنید.' })
         },
     }
 
