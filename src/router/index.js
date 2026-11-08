@@ -235,6 +235,13 @@ const routes = [
     meta: { loginRequired: true }
   },
   {
+    path: '/admin/accounting',
+    alias: '/revenue/admin/accounting',
+    name: 'AdminAccounting',
+    component: () => import('../views/admin/Accounting.vue'),
+    meta: { loginRequired: true }
+  },
+  {
     path: '/admin/user-author/:id',
     name: 'AuthorDetail',
     component: AuthorDetail,

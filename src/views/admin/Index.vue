@@ -48,6 +48,8 @@
 
     <div  class="p-lg-5 text-light text-right">
       <div v-if="$store.state.section=='admin'" class="col-lg-4 col-11 mx-auto shadow redu20 bg-violet p-3 p-lg-5">
+          <router-link to="/admin/accounting" class="btn btn-block btn-light">محاسبات کارکرد مشاوران</router-link>
+          <hr>
           <button class="btn btn-block btn-light " @click="sections('authors')">رفتن به مدیریت مشاوران</button>
           <hr>
           <button class="btn btn-block btn-light " @click="sections('tickets')">رفتن به مدیریت تیکت ها</button>

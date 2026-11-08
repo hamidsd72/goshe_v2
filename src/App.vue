@@ -937,7 +937,7 @@
     border-radius:50%;
     animation:animateC 2s linear infinite;
   }
-  td
+  .ring > td
   {
     display:block;
     position:absolute;
@@ -949,7 +949,7 @@
     transform-origin:left;
     animation:animate 2s linear infinite;
   }
-  td:before
+  .ring > td:before
   {
     content:'';
     position:absolute;
